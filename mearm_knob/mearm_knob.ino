@@ -1,5 +1,5 @@
-// Controlling a servo position using a potentiometer (variable resistor) 
-// by Michal Rinott <http://people.interaction-ivrea.it/m.rinott> 
+// Controle de um braco robotico meArm usando poteciometros
+// Baseado no exemplo servo -> knob
 
 #include <Servo.h> 
  
@@ -16,18 +16,24 @@ void setup()
   servo1.attach(3);
   servo2.attach(5);
   servo3.attach(6);
+  
 } 
  
 void loop() 
 { 
-  acionaServo(servo1, controle1);
-  acionaServo(servo2, controle2);
-  acionaServo(servo3, controle3);
+  lePotAcionaServo(servo1, controle1);
+  lePotAcionaServo(servo2, controle2);
+  lePotAcionaServo(servo3, controle3);
   delay(15);
 } 
 
-void acionaServo(Servo servo, int controle) {
+int leComando(int controle) {
   int val = analogRead(controle);
   val = map(val, 0, 1023, 0, 179);
+  return val;
+}
+
+void lePotAcionaServo(Servo servo, int controle) {
+  int val = leComando(controle);
   servo.write(val);
 }
