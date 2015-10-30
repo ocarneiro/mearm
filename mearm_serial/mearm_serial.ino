@@ -10,6 +10,8 @@ Servo servo3;
 int controle1 = A0;
 int controle2 = A1;
 int controle3 = A2;
+
+int valorComando = 90;
  
 String comandoLido = "";
 boolean comandoCompleto = false;
@@ -28,7 +30,7 @@ void setup()
 void loop() 
 { 
   if (comandoCompleto) {
-    int valorComando = comandoLido.toInt();
+    valorComando = comandoLido.toInt();
     Serial.println(valorComando); 
     comandoLido = "";
     comandoCompleto = false;
@@ -36,7 +38,9 @@ void loop()
   
   lePotAcionaServo(servo1, controle1);
   lePotAcionaServo(servo2, controle2);
-  lePotAcionaServo(servo3, controle3);
+  //lePotAcionaServo(servo3, controle3);
+  servo3.write(valorComando);
+  
   delay(15);
 } 
 
